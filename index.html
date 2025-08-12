@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="card">
+      <div class="app-header">
+        <h1 class="app-title">Weather</h1>
+        <p class="app-subtitle">Get real-time weather updates</p>
+      </div>
+      <div class="search">
+        <input
+          type="text"
+          placeholder="Enter city name"
+          id="cityInput"
+          spellcheck="false"
+        />
+        <button><img src="search.png" /></button>
+      </div>
+      <div class="weather">
+        <img src="images/rainy.png" class="weather-icon" />
+        <h1 class="temp">22°C</h1>
+        <h2 class="city">Karachi</h2>
+        <div class="details">
+          <div class="col">
+            <img src="images/humidity.png" alt="Humidity" />
+            <div>
+              <p class="humidity">50%</p>
+              <p>Humidity</p>
+            </div>
+          </div>
+          <div class="col">
+            <img src="images/wind.png" alt="Wind" />
+            <div>
+              <p class="wind">15kmph</p>
+              <p>Wind Speed</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const apiKey = "1cc0af380f1528de1e3451dec81ff106";
+      const apiUrl =
+        "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+
+      async function checkWeather(city) {
+        const card = document.querySelector(".card");
+        const cityInput = document.querySelector("#cityInput");
+        const weatherSection = document.querySelector(".weather");
+
+        try {
+          // Add loading state
+          card.classList.add("loading");
+
+          const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+
+          if (!response.ok) {
+            throw new Error("City not found");
+          }
+
+          const data = await response.json();
+          console.log(data);
+
+          // Show weather section on first successful search
+          weatherSection.style.display = "block";
+
+          // Update weather icon based on condition
+          const weatherIcon = document.querySelector(".weather-icon");
+          const weatherMain = data.weather[0].main.toLowerCase();
+
+          if (weatherMain.includes("cloud")) {
+            weatherIcon.src = "images/clouds.png";
+          } else if (weatherMain.includes("clear")) {
+            weatherIcon.src = "images/clear.png";
+          } else if (weatherMain.includes("rain")) {
+            weatherIcon.src = "images/rainy.png";
+          } else if (weatherMain.includes("drizzle")) {
+            weatherIcon.src = "images/drizzle.png";
+          } else if (
+            weatherMain.includes("mist") ||
+            weatherMain.includes("fog")
+          ) {
+            weatherIcon.src = "images/mist.png";
+          } else if (weatherMain.includes("snow")) {
+            weatherIcon.src = "images/snow.png";
+          } else {
+            weatherIcon.src = "images/rainy.png";
+          }
+
+          document.querySelector(".city").innerHTML = data.name;
+          document.querySelector(".temp").innerHTML =
+            Math.round(data.main.temp) + "°C";
+          document.querySelector(".humidity").innerHTML =
+            data.main.humidity + "%";
+          document.querySelector(".wind").innerHTML =
+            Math.round(data.wind.speed) + " km/h";
+
+          // Clear input after successful search
+          cityInput.value = "";
+
+          // Add success animation
+          card.style.transform = "scale(1.02)";
+          setTimeout(() => {
+            card.style.transform = "scale(1)";
+          }, 200);
+        } catch (error) {
+          console.error("Error fetching weather data:", error);
+
+          // Show error message
+          alert("City not found! Please enter a valid city name.");
+          cityInput.focus();
+        } finally {
+          // Remove loading state
+          card.classList.remove("loading");
+        }
+      }
+
+      function performSearch() {
+        const city = document.querySelector("#cityInput").value.trim();
+        if (city) {
+          checkWeather(city);
+        } else {
+          alert("Please enter a city name!");
+          document.querySelector("#cityInput").focus();
+        }
+      }
+
+      document.querySelector("button").addEventListener("click", performSearch);
+
+      document.querySelector("#cityInput").addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          performSearch();
+        }
+      });
+
+      // Add input focus animation
+      document.querySelector("#cityInput").addEventListener("focus", () => {
+        document.querySelector(".search").style.transform = "scale(1.02)";
+      });
+
+      document.querySelector("#cityInput").addEventListener("blur", () => {
+        document.querySelector(".search").style.transform = "scale(1)";
+      });
+
+      // Welcome message for first-time users
+      console.log("Weather App Ready! Enter a city name to get started.");
+    </script>
+  </body>
+</html>

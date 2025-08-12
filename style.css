@@ -1,0 +1,319 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.card{
+    width: 90%;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    color: #333;
+    border-radius: 25px;
+    padding: 40px 35px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+}
+
+.app-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(103, 126, 234, 0.1);
+    position: relative;
+}
+
+.app-title {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+    letter-spacing: -1px;
+    position: relative;
+    display: inline-block;
+}
+
+.app-title::after {
+    content: '🌤️';
+    position: absolute;
+    top: -10px;
+    right: -40px;
+    font-size: 2rem;
+    animation: bounce 2s ease-in-out infinite;
+}
+
+.app-subtitle {
+    font-size: 1rem;
+    color: #777;
+    font-weight: 300;
+    opacity: 0.8;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.search{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(103, 126, 234, 0.1);
+    border-radius: 50px;
+    padding: 8px;
+    margin-bottom: 30px;
+    border: 2px solid rgba(103, 126, 234, 0.2);
+    transition: all 0.3s ease;
+}
+
+.search:focus-within {
+    border-color: #667eea;
+    box-shadow: 0 0 20px rgba(103, 126, 234, 0.3);
+}
+
+.search input[type="text"]{
+    width: 100%;
+    padding: 15px 25px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #333;
+    height: 50px;
+    flex: 1;
+    font-size: 16px;
+    font-weight: 400;
+} 
+
+.search input[type="text"]::placeholder {
+    color: #999;
+    font-weight: 300;
+}
+
+.search button{
+    width: 50px;
+    height: 50px;
+    border: 0;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(103, 126, 234, 0.3);
+}
+
+.search button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(103, 126, 234, 0.4);
+}
+
+.search button:active {
+    transform: scale(0.95);
+}
+
+.search button img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+}
+
+.weather {
+    margin-top: 20px;
+}
+
+.weather-icon{
+    width: 150px;
+    margin: 20px 0;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.temp {
+    font-size: 4rem;
+    font-weight: 700;
+    margin: 20px 0 10px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.weather h2{
+    font-size: 2rem;
+    font-weight: 500;
+    margin-bottom: 30px;
+    color: #555;
+    opacity: 0.9;
+}
+
+.details{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: rgba(103, 126, 234, 0.05);
+    border-radius: 20px;
+    padding: 25px 15px;
+    margin-top: 30px;
+    border: 1px solid rgba(103, 126, 234, 0.1);
+}
+
+.col{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+    padding: 10px;
+    transition: transform 0.3s ease;
+}
+
+.col:hover {
+    transform: scale(1.05);
+}
+
+.col img{
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.1));
+}
+
+.humidity, .wind{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #667eea;
+    margin-bottom: 5px;
+}
+
+.col p:last-child {
+    font-size: 0.9rem;
+    color: #777;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Loading animation */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+    .card {
+        margin: 20px;
+        padding: 30px 25px;
+    }
+    
+    .app-title {
+        font-size: 2.5rem;
+    }
+    
+    .app-title::after {
+        right: -30px;
+        font-size: 1.5rem;
+    }
+    
+    .app-subtitle {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+    
+    .temp {
+        font-size: 3rem;
+    }
+    
+    .weather h2 {
+        font-size: 1.5rem;
+    }
+    
+    .details {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .col {
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+    }
+    
+    .col img {
+        margin-right: 15px;
+        margin-bottom: 0;
+    }
+}
+.weather{
+    display: none;
+     opacity: 0;
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
